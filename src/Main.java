@@ -8,17 +8,17 @@ public class Main {
 
     public static void main(String[] args) {
         shop = 0;
-        List<String> list = new ArrayList<>();
-        list.add("Молоко");
-        list.add("Кефир");
-        list.add("Хлеб");
-        list.add("Батон");
-        list.add("Курица");
-        list.add("Яйцо");
+        List<String> products = new ArrayList<>();
+        products.add("Молоко");
+        products.add("Кефир");
+        products.add("Хлеб");
+        products.add("Батон");
+        products.add("Курица");
+        products.add("Яйцо");
         List<String> shopping = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
-        int operations1 = 0;
+        int operations1;
         while (true) {
             System.out.println("Выберите операцию или введите end:");
             System.out.println("1. Добавить");
@@ -39,7 +39,7 @@ public class Main {
                 case 1:
                     System.out.println("Какую покупку хотите совершить?");
                     String name = scanner.nextLine();
-                    if (list.contains(name)) {
+                    if (products.contains(name)) {
                         shopping.add(name);
                         shop++;
                         System.out.println("Итого в списке покупок: " + shop);
@@ -48,20 +48,10 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("Список покупок:");
-                    for (int i = 0; i < shopping.size(); i++) {
-                        for (String s : shopping) {
-                            System.out.println((++i) + ". " + s);
-                        }
-                    }
+                    printProducts(shopping);
                     break;
                 case 3:
-                    System.out.println("Список покупок:");
-                    for (int i = 0; i < shopping.size(); i++) {
-                        for (String s : shopping) {
-                            System.out.println((++i) + ". " + s);
-                        }
-                    }
+                    printProducts(shopping);
                     System.out.println("Какую хотите удалить? Введите номер или название");
                     String delShop = scanner.nextLine();
                     try {
@@ -69,22 +59,14 @@ public class Main {
                         System.out.println("Покупка " + shopping.get(--choiceDelNumb) + " удалена. Список покупок");
                         shopping.remove(choiceDelNumb);
                         shop--;
-                        for (int i = 0; i < shopping.size(); i++) {
-                            for (String s : shopping) {
-                                System.out.println((++i) + ". " + s);
-                            }
-                        }
+                        printProducts(shopping);
                     } catch (Exception e) {
                         String choiceDelName = String.valueOf(delShop);
-                        if (list.contains(choiceDelName)) {
+                        if (products.contains(choiceDelName)) {
                             shopping.remove(choiceDelName);
                             shop--;
                             System.out.println("Покупка " + choiceDelName + " удалена. Список покупок");
-                            for (int i = 0; i < shopping.size(); i++) {
-                                for (String s : shopping) {
-                                    System.out.println((++i) + ". " + s);
-                                }
-                            }
+                            printProducts(shopping);
                         } else {
                             System.out.println("Такого товара нет, итого в списке покупок: " + shop);
                         }
@@ -109,6 +91,12 @@ public class Main {
                     System.out.println("Такой операции нет");
             }
         }
+    }
 
+    private static void printProducts(List<String> shopping) {
+        System.out.println("Список покупок:");
+        for (int i = 0; i < shopping.size(); i++) {
+            System.out.println((i + 1) + ". " + shopping.get(i));
+        }
     }
 }
